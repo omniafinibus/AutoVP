@@ -19,7 +19,9 @@
 # =========== #
 import logging
 import argparse
+from defaults import ARCH
 from log import setup_custom_logger
+from architecture import VirtualPrototype
 
 # ============== #
 #   Definition   #
@@ -41,12 +43,16 @@ def hello_world(hello:bool = True):
     print("Goodbye")
 
 # ======================== # Main Code # ======================== #
-logging.info(f"Printing \"hello world\"")
-hello_world()
-hello_world(GOODBYE)
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--mem",     help="size of the memory", type=float)
+parser.add_argument("-m", "--mem", help="size of the memory", type=float)
+parser.add_argument("-c", "--core_count", help="Number of cores present", type=int, choices=range(1,32), default=1)
+args = parser.parse_args()
+
+virtualProtoype = VirtualPrototype(list())
+
+virtualProtoype.arch = ARCH.RISCV32
+
 
 # Deploy directories and preliminary files
 
